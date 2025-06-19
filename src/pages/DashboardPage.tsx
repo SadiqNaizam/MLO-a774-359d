@@ -24,8 +24,8 @@ const DashboardPage = () => {
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      <Sidebar className="bg-white border-r">
+    <div className="flex min-h-screen bg-background text-foreground">
+      <Sidebar className="bg-white border-r"> {/* Sidebar remains white explicitly */}
         <div className="p-4 border-b">
           <Link to="/dashboard" className="flex items-center space-x-2">
             <img src="https://via.placeholder.com/40/3B82F6/FFFFFF?Text=Logo" alt="App Logo" className="h-8 w-8" />
@@ -53,7 +53,7 @@ const DashboardPage = () => {
       </Sidebar>
 
       <div className="flex-1 flex flex-col">
-        <header className="bg-white shadow-sm sticky top-0 z-10">
+        <header className="bg-white shadow-sm sticky top-0 z-10"> {/* Header remains white explicitly */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <h1 className="text-xl font-semibold text-gray-800">Dashboard Overview</h1>
             <div className="flex items-center space-x-4">
@@ -69,8 +69,8 @@ const DashboardPage = () => {
           </div>
         </header>
 
-        <main className="flex-1 p-6 space-y-6">
-          <Card>
+        <main className="flex-1 p-6 space-y-6"> {/* This area will now have black background */}
+          <Card> {/* Cards will use their own background (white in light mode) */}
             <CardHeader>
               <CardTitle>Welcome Back!</CardTitle>
               <CardDescription>Here's a quick overview of your application.</CardDescription>
@@ -113,6 +113,5 @@ const DashboardPage = () => {
       </div>
     </div>
   );
-};
-
+};\n
 export default DashboardPage;
