@@ -2,95 +2,113 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-// --- START: CONSOLE INTERCEPTION SCRIPT ---
-const targetOrigin = '*'; // <-- IMPORTANT: SET YOUR PARENT ORIGIN
-// const targetOrigin = '*'; // Use '*' ONLY for local development if origins differ
+// Import newly created pages
+import LoginPage from "./pages/LoginPage";
+import RegistrationPage from "./pages/RegistrationPage";
+import PasswordRecoveryPage from "./pages/PasswordRecoveryPage";
+import TwoFactorAuthPage from "./pages/TwoFactorAuthPage";
+import DashboardPage from "./pages/DashboardPage";
 
-// Store original console methods
-const originalConsole = {
-    log: console.log.bind(console),
-    error: console.error.bind(console),
-    warn: console.warn.bind(console),
-    info: console.info.bind(console),
+import NotFound from "./pages/NotFound"; // Assuming NotFound.tsx exists
+
+const queryClient = new QueryClient();
+
+// A simple mock auth check. In a real app, this would involve context or a store.
+// For this example, we'll assume not authenticated by default to show login page.
+const isAuthenticated = () => {
+  // Replace with actual auth check logic (e.g., check for a token in localStorage)
+  // For now, let's assume the user is not authenticated initially to land on login.
+  // If you want to test dashboard directly, set this to true.
+  // To simulate post-login, this state would change.
+  return localStorage.getItem("isSimulatedAuth") === "true"; 
 };
 
-// Function to format arguments for postMessage
-function formatLogArguments(args) {
-    // (Keep the function as you defined it)
-    return args.map(arg => {
-        if (typeof arg === 'object' && arg !== null) {
-            try {
-                return JSON.parse(JSON.stringify(arg));
-            } catch (e) {
-                return '[Unserializable Object]';
-            }
-        }
-        return String(arg);
-    }).join(' ');
+// ProtectedRoute component
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+  if (!isAuthenticated()) {
+    // User not authenticated, redirect to login page
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
+
+
+// Simulate login by setting a flag (call this from LoginPage on successful login)
+// export const simulateLogin = () => localStorage.setItem("isSimulatedAuth", "true");
+// Simulate logout (call this from DashboardPage logout button)
+// export const simulateLogout = () => localStorage.removeItem("isSimulatedAuth");
+// For the purpose of this generator, these functions would typically live elsewhere.
+// I'll keep the LoginPage logic to navigate to Dashboard, but won't implement full auth state management here.
+
+const App = () => {
+  console.log('App loaded. Current auth status (simulated):', isAuthenticated());
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            {/* Auth Routes */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegistrationPage />} />
+            <Route path="/password-recovery" element={<PasswordRecoveryPage />} />
+            <Route path="/two-factor-auth" element={<TwoFactorAuthPage />} />
+
+            {/* Protected Routes */}
+            <Route 
+              path="/dashboard" 
+              element={
+                <ProtectedRoute>
+                  <DashboardPage />
+                </ProtectedRoute>
+              } 
+            />
+             {/* More protected routes can be added here like /dashboard/analytics etc. */}
+            <Route 
+              path="/dashboard/analytics" 
+              element={
+                <ProtectedRoute>
+                  {/* Placeholder for Analytics page content, or redirect to DashboardPage if not distinct */}
+                  <DashboardPage /> 
+                </ProtectedRoute>
+              } 
+            />
+             <Route 
+              path="/dashboard/users" 
+              element={
+                <ProtectedRoute>
+                   {/* Placeholder for Users page content */}
+                  <DashboardPage />
+                </ProtectedRoute>
+              } 
+            />
+             <Route 
+              path="/dashboard/settings" 
+              element={
+                <ProtectedRoute>
+                   {/* Placeholder for Settings page content */}
+                  <DashboardPage />
+                </ProtectedRoute>
+              } 
+            />
+
+
+            {/* Index route: Redirect to dashboard if authenticated, else to login */}
+            <Route 
+              path="/" 
+              element={isAuthenticated() ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />} 
+            />
+            
+            {/* Catch-all Not Found Route */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
 }
-
-// Override console methods
-console.log = (...args) => {
-    originalConsole.log(...args);
-    try {
-        window.parent.postMessage({ type: 'console', level: 'log', message: formatLogArguments(args), timestamp: new Date().toISOString() }, targetOrigin);
-    } catch (e) { originalConsole.error("Error posting log message:", e); }
-};
-
-console.error = (...args) => {
-    originalConsole.error(...args);
-    try {
-        const message = formatLogArguments(args);
-        const stack = (args[0] instanceof Error) ? args[0].stack : new Error().stack;
-        window.parent.postMessage({ type: 'console', level: 'error', message: message, stack: stack, timestamp: new Date().toISOString() }, targetOrigin);
-    } catch (e) { originalConsole.error("Error posting error message:", e); }
-};
-
-console.warn = (...args) => {
-    originalConsole.warn(...args);
-    try {
-        window.parent.postMessage({ type: 'console', level: 'warn', message: formatLogArguments(args), timestamp: new Date().toISOString() }, targetOrigin);
-    } catch (e) { originalConsole.error("Error posting warn message:", e); }
-};
-
-console.info = (...args) => {
-    originalConsole.info(...args);
-    try {
-        window.parent.postMessage({ type: 'console', level: 'info', message: formatLogArguments(args), timestamp: new Date().toISOString() }, targetOrigin);
-    } catch (e) { originalConsole.error("Error posting info message:", e); }
-};
-
-// Catch unhandled errors and rejections
-window.addEventListener('error', (event) => {
-    originalConsole.error('Unhandled global error:', event.error || event.message);
-    try {
-        window.parent.postMessage({ type: 'console', level: 'error', message: `Unhandled global error: ${event.message}`, errorDetails: event.error ? formatLogArguments([event.error]) : null, stack: event.error ? event.error.stack : null, filename: event.filename, lineno: event.lineno, colno: event.colno, timestamp: new Date().toISOString() }, targetOrigin);
-    } catch (e) { originalConsole.error("Error posting global error message:", e); }
-});
-
-window.addEventListener('unhandledrejection', (event) => {
-    originalConsole.error('Unhandled promise rejection:', event.reason);
-    try {
-        window.parent.postMessage({ type: 'console', level: 'error', message: `Unhandled promise rejection: ${formatLogArguments([event.reason])}`, reason: formatLogArguments([event.reason]), stack: event.reason instanceof Error ? event.reason.stack : null, timestamp: new Date().toISOString() }, targetOrigin);
-    } catch (e) { originalConsole.error("Error posting rejection message:", e); }
-});
-
-console.log('Console interceptor initialized.');
-// --- END: CONSOLE INTERCEPTION SCRIPT ---
-
-
-const App = () => (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-);
 
 export default App;
