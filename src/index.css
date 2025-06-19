@@ -4,81 +4,80 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 220 17% 95%; /* Light BG Gray e.g., #F3F4F6 */
+    --foreground: 215 14% 43%; /* Light Text Gray e.g., #6B7280 */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 215 14% 43%; /* Light Text Gray */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 215 14% 43%; /* Light Text Gray */
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 155 84% 34%; /* Design Accent Green/Teal (e.g., #0E9F6E, good contrast with white text) */
+    --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217 91% 60%; /* Design Primary Blue (e.g., #3B82F6) */
+    --secondary-foreground: 0 0% 100%; /* White */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 17% 90%; /* Slightly darker than background */
+    --muted-foreground: 215 14% 50%; /* Slightly less prominent text */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 217 91% 96%; /* Very light blue (from Design Primary Blue) for hover states */
+    --accent-foreground: 217 91% 45%; /* Darker blue for text on light blue accent */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%; /* Existing red */
+    --destructive-foreground: 210 40% 98%; /* Existing light foreground */
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 16% 88%; /* Subtle gray border */
+    --input: 220 16% 88%; /* Subtle gray input background/border */
+    --ring: 155 84% 34%; /* Design Accent Green/Teal for focus ring */
 
-    --radius: 0.5rem;
+    --radius: 0.5rem; /* 8px, matches design spec */
 
+    /* Font */
+    --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    /* Sidebar colors - unchanged as per current scope */
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 215 19% 27%; /* Dark BG Gray e.g., #374151 */
+    --foreground: 215 10% 65%; /* Dark Text Gray e.g., #9CA3AF */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 215 28% 17%; /* Design Dark Primary Slate/Blue e.g., #1F2937 */
+    --card-foreground: 215 10% 65%; /* Dark Text Gray */
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 215 28% 17%; /* Design Dark Primary Slate/Blue */
+    --popover-foreground: 215 10% 65%; /* Dark Text Gray */
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 170 65% 50%; /* Design Accent Teal/Cyan (e.g., #2DD4BF) */
+    --primary-foreground: 221 39% 11%; /* Very dark gray/black (e.g., #111827) for contrast */
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 215 25% 22%; /* Slightly lighter than card, darker than background */
+    --secondary-foreground: 210 40% 98%; /* Light foreground */
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 215 25% 22%;
+    --muted-foreground: 215 10% 50%; /* Dimmer text */
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 215 28% 25%; /* Lighter dark slate for hovers */
+    --accent-foreground: 210 40% 98%; /* Light text */
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%; /* Existing dark red */
+    --destructive-foreground: 210 40% 98%; /* Existing light foreground */
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 215 20% 30%; /* Subtle border, lighter than dark background */
+    --input: 215 20% 30%; /* Subtle input background/border */
+    --ring: 170 65% 50%; /* Design Accent Teal/Cyan for focus ring */
+
+    /* Sidebar colors - unchanged as per current scope */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -97,5 +96,6 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
   }
 }
