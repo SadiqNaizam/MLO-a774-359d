@@ -4,32 +4,35 @@
 
 @layer base {
   :root {
-    --background: 220 17% 95%; /* Light BG Gray e.g., #F3F4F6 */
-    --foreground: 215 14% 43%; /* Light Text Gray e.g., #6B7280 */
+    /* Updated for black background theme */
+    --background: 0 0% 0%; /* Black */
+    --foreground: 0 0% 98%; /* Near White */
 
     --card: 0 0% 100%; /* White */
-    --card-foreground: 215 14% 43%; /* Light Text Gray */
+    --card-foreground: 215 14% 43%; /* Light Text Gray (original #6B7280 for white cards) */
 
     --popover: 0 0% 100%; /* White */
     --popover-foreground: 215 14% 43%; /* Light Text Gray */
 
-    --primary: 155 84% 34%; /* Design Accent Green/Teal (e.g., #0E9F6E, good contrast with white text) */
+    --primary: 155 84% 34%; /* Design Accent Green/Teal */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 217 91% 60%; /* Design Primary Blue (e.g., #3B82F6) */
+    --secondary: 217 91% 60%; /* Design Primary Blue */
     --secondary-foreground: 0 0% 100%; /* White */
 
-    --muted: 220 17% 90%; /* Slightly darker than background */
-    --muted-foreground: 215 14% 50%; /* Slightly less prominent text */
+    /* Updated for black background theme */
+    --muted: 0 0% 10%; /* Very Dark Gray */
+    --muted-foreground: 0 0% 65%; /* Medium-Light Gray */
 
-    --accent: 217 91% 96%; /* Very light blue (from Design Primary Blue) for hover states */
+    --accent: 217 91% 96%; /* Very light blue (for hover states, contrast on primary/secondary elements) */
     --accent-foreground: 217 91% 45%; /* Darker blue for text on light blue accent */
 
     --destructive: 0 84.2% 60.2%; /* Existing red */
     --destructive-foreground: 210 40% 98%; /* Existing light foreground */
 
-    --border: 220 16% 88%; /* Subtle gray border */
-    --input: 220 16% 88%; /* Subtle gray input background/border */
+    /* Updated for black background theme */
+    --border: 0 0% 15%; /* Dark Gray border */
+    --input: 220 16% 88%; /* Subtle gray input background/border (inputs remain light on black bg) */
     --ring: 155 84% 34%; /* Design Accent Green/Teal for focus ring */
 
     --radius: 0.5rem; /* 8px, matches design spec */
@@ -37,7 +40,7 @@
     /* Font */
     --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-    /* Sidebar colors - unchanged as per current scope */
+    /* Sidebar colors - unchanged as per current scope, Sidebar itself might use bg-background or override */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -49,23 +52,24 @@
   }
 
   .dark {
-    --background: 215 19% 27%; /* Dark BG Gray e.g., #374151 */
-    --foreground: 215 10% 65%; /* Dark Text Gray e.g., #9CA3AF */
+    /* Updated for black background theme */
+    --background: 0 0% 0%; /* Black */
+    --foreground: 0 0% 98%; /* Near White */
 
-    --card: 215 28% 17%; /* Design Dark Primary Slate/Blue e.g., #1F2937 */
-    --card-foreground: 215 10% 65%; /* Dark Text Gray */
+    --card: 215 28% 17%; /* Design Dark Primary Slate/Blue e.g., #1F2937 (contrasts with black bg) */
+    --card-foreground: 215 10% 65%; /* Dark Text Gray (original #9CA3AF for dark cards) */
 
     --popover: 215 28% 17%; /* Design Dark Primary Slate/Blue */
     --popover-foreground: 215 10% 65%; /* Dark Text Gray */
 
-    --primary: 170 65% 50%; /* Design Accent Teal/Cyan (e.g., #2DD4BF) */
-    --primary-foreground: 221 39% 11%; /* Very dark gray/black (e.g., #111827) for contrast */
+    --primary: 170 65% 50%; /* Design Accent Teal/Cyan */
+    --primary-foreground: 221 39% 11%; /* Very dark gray/black */
 
     --secondary: 215 25% 22%; /* Slightly lighter than card, darker than background */
     --secondary-foreground: 210 40% 98%; /* Light foreground */
 
-    --muted: 215 25% 22%;
-    --muted-foreground: 215 10% 50%; /* Dimmer text */
+    --muted: 215 25% 22%; /* Original dark muted, good with black bg */
+    --muted-foreground: 215 10% 50%; /* Original dark muted-foreground, good with black bg */
 
     --accent: 215 28% 25%; /* Lighter dark slate for hovers */
     --accent-foreground: 210 40% 98%; /* Light text */
@@ -73,11 +77,11 @@
     --destructive: 0 62.8% 30.6%; /* Existing dark red */
     --destructive-foreground: 210 40% 98%; /* Existing light foreground */
 
-    --border: 215 20% 30%; /* Subtle border, lighter than dark background */
-    --input: 215 20% 30%; /* Subtle input background/border */
+    --border: 215 20% 30%; /* Subtle border, lighter than dark background (original dark border) */
+    --input: 215 20% 30%; /* Subtle input background/border (original dark input) */
     --ring: 170 65% 50%; /* Design Accent Teal/Cyan for focus ring */
 
-    /* Sidebar colors - unchanged as per current scope */
+    /* Sidebar colors - unchanged */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
